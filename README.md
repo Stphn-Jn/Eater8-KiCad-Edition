@@ -1,28 +1,49 @@
-# BE8-A4: The Breadboardless 8-Bit Computer
+# Ben Eater 8-Bit Computer: Proteus to KiCad Implementation
 
-###  Overview
-This project is a hardware reimagining of Ben Eater's famous 8-bit computer. While the original design spans 14+ breadboards and hundreds of jumper wires, this version integrates the entire architecture—CPU, RAM, Microcode, and Output—onto a single **A4-sized printed circuit board (PCB)**.
+This repository contains a complete hardware reconstruction of the 8-bit breadboard computer originally designed by Ben Eater. The project transitions the design from a modular breadboard prototype into a verified digital simulation in Proteus and a professional multi-sheet PCB layout in KiCad.
 
+## Project Overview
+This project provides the full design files for an 8-bit TTL-based computer. Unlike the original breadboard version, this implementation focuses on hardware reliability and scalability through the use of printed circuit boards.
 
+* **Simulation:** Verified logic and timing using Proteus 8.x.
+* **Hardware:** Fully routed PCBs designed in KiCad, optimized for signal integrity and modular assembly.
+* **Architecture:** SAP-1 (Simple As Possible) inspired, featuring a 4-bit program counter, 8-bit ALU, and microcode-based control logic.
 
-###  Improvements & Design Goals
-* **Form Factor:** Transitioned from a modular breadboard layout to a rigid, single-board A4 footprint.
-* **Signal Integrity:** Reduced noise and "cross-talk" inherent in long breadboard jumper wires.
-* **Permanent Storage:** Replaced volatile breadboard connections with soldered reliability.
-* **Visual Feedback:** Retained the iconic LED-per-register status indicators for educational debugging.
+## Key Features
+* **Full Proteus Digital Twin:** A complete .pdsprj file to test programs and verify logic before hardware fabrication.
+* **Modular PCB Design:** The system is organized into functional blocks (Registers, ALU, RAM, Control Logic) to assist in troubleshooting and signal tracing.
+* **Instruction Set:** Supports standard operations including LDA, ADD, SUB, OUT, and HLT.
+* **Visual Debugging:** Integrated LED bus monitors for the Data Bus and Address Bus to track real-time execution.
 
-###  Architecture Modules
-The board follows the classic Von Neumann architecture, including:
-1.  **Clock Module:** Variable speed with manual pulse mode.
-2.  **Registers (A, B, and Instruction):** 8-bit storage for ALU operations.
-3.  **ALU:** Addition and Subtraction logic.
-4.  **RAM & Program Counter:** 16 bytes of addressable memory.
-5.  **Control Logic:** EEPROM-based microcode execution.
-6.  **Output:** 4-digit 7-segment display logic.
+## Repository Structure
+```text
+├── Simulation/          # Proteus project files and logic testing
+├── Hardware/            # KiCad schematics, PCB layouts, and Footprints
+├── Firmware/            # Arduino sketches for EEPROM microcode programming
+├── Documentation/       # Datasheets for 74-series ICs used
+└── README.md
+```
 
-###  Repository Structure
-* `/Schematics`: Kicad/EasyEDA source files.
-* `/Microcode`: Python scripts and binaries for the EEPROMs.
-* `/Docs`: Wiring diagrams and logic tables.
+## Technical Specifications
+| Component | Implementation |
+| :--- | :--- |
+| **CPU** | 8-bit Breadboard-inspired TTL Logic |
+| **Clock** | Variable frequency (Manual Pulse / Auto-run) |
+| **RAM** | 16 Bytes (utilizing 74LS189 or equivalent) |
+| **ALU** | Addition and Subtraction (74LS283) |
+| **Control Logic** | EEPROM-based (28C16) microcode |
+| **Display** | Triple 7-segment output for decimal/hex viewing |
 
-###  Build Notes
+## Tools Used
+* **Simulation:** Proteus Design Suite
+* **PCB Design:** KiCad EDA
+* **Microcode Programming:** Arduino (for flashing the 28C16 EEPROMs)
+
+## Usage Instructions
+1. **Simulate:** Open the files in the Simulation folder using Proteus to verify the logic gates and timing diagrams.
+2. **Fabricate:** Utilize the Gerber files located in the Hardware folder for PCB manufacturing.
+3. **Program:** Use the provided Assembly examples and EEPROM flashing scripts to load instructions into the system memory.
+
+---
+*Developed by Calista as a 4th-year Computer Engineering project.*
+
